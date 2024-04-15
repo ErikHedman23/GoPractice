@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
@@ -20,4 +22,23 @@ func main() {
 	//The ReadString function knows to stop reading the string that was entered after the new string that gets printed by the Println().  Print() doesn't print a new line after the argument is passed in.  But, Println does.
 	input, _ := reader.ReadString('\n')
 	fmt.Println("You entered:", input)
+
+	fmt.Print("Enter a number: ")
+
+	//we are initializing another variable using the bufio package.  We are reusing reader from last time, but now for numInputm, and we are ignoring the error again.
+	numInput, _ := reader.ReadString('\n')
+
+	//Now, we are converting the string to an integer, and we want to pay attention to the error.  The user could input a value that cannot be converted to an integer value.
+	//we are converting the string to a Float, and we are using the strconv package, and the ParseFloat function, which takes in two parameters: the string that we are converting, and the bit size.
+	//We want to handle for if the user adds any spaces before or after the input, so we use the TrimSpace function and insert the numInput as the parameter to remove any trailing whitespace.
+	//Then, we input 64 because we are using a 64 bit operating system.
+	aFloat, err := strconv.ParseFloat(strings.TrimSpace(numInput), 64)
+
+	//Now, we are handling for the error.  If the error variable is not nil (null), meaning the error takes on the value of the invalid input by the user; then, we print the error message to the screen.
+	//If the error message is nil, we will print the value to the screen by calling the converted Float value
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Value of number:", aFloat)
+	}
 }
