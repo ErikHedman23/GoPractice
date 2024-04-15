@@ -2,31 +2,30 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
-
 func main() {
+	//if you want to initialize several variables of the same type, you can do so like this:
+	i1, i2, i3 := 12, 45, 68
 
-	var aString string = "This is Go!"
+	intSum := i1 + i2 + i3
 
-	fmt.Println(aString)
+	fmt.Println("Integer sum =", intSum)
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	f1, f2, f3 := 23.5, 65.1, 76.3
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	floatSum := f1 + f2 + f3
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	fmt.Println("Float sum =", floatSum)
 
+	floatSum = math.Round(floatSum*100) / 100
+
+	fmt.Println("The float sum is now =", floatSum)
+
+	circleRadius := 15.5
+	circumference := circleRadius * 2 * math.Pi
+	//using a constant in the math package called math.Pi, and we are using Printf() to format the circumference variable using %.2f, which means
+	//a floating number with 2 digits after the decimal
+	fmt.Printf("Circumference = %.2f\n", circumference)
 }
