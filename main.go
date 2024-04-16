@@ -2,31 +2,24 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
-
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
 
 func main() {
 
-	var aString string = "This is Go!"
+	n := time.Now()
 
-	fmt.Println(aString)
+	fmt.Println("I performed this computation at: ", n)
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	t := time.Date(2024, time.April, 15, 19, 0, 0, 0, time.UTC)
+	fmt.Println("The time of today is ", t)
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	//This is printing out a formated version of the one above this.
+	fmt.Println(t.Format(time.ANSIC))
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	//time.Parse handles errors, so we put in a _ to simply handle any errors, but we are ignoring the error:
 
+	parsedTime, _ := time.Parse(time.ANSIC, "Mon April 15 19:00:00 2024")
+
+	fmt.Printf("The time of parseTime is %T\n", parsedTime)
 }
