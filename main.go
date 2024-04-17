@@ -2,31 +2,63 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
-
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
 
 func main() {
 
-	var aString string = "This is Go!"
+	//Maps are unordered collections of key value pairs.  It is a Hash table that lets you store collections of data and then arbitrarily
+	//find items in the collection using their keys.
 
-	fmt.Println(aString)
+	//It is common to use strings for keys, and any other type for the associated values, but keys can be of any type
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	states := make(map[string]string)
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	states["WA"] = "Washington"
+	states["TN"] = "Tennessee"
+	states["AL"] = "Alabama"
+	fmt.Println(states)
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	//You can also assign variables to keys in a map
 
+	tennessee := states["TN"]
+
+	fmt.Println(tennessee)
+
+	//If you want to remove an item from a map, use the builtin delete()
+
+	delete(states, "TN")
+
+	//you can also add to a map like so
+
+	states["NY"] = "New York"
+
+	fmt.Println(states)
+
+	//if you want to iterate through a map, you can use a for loop where k is the key and v is the value
+
+	for k, v := range states {
+		fmt.Printf("%v: %v\n", k, v)
+	}
+
+	//if you are wanting to display the values of a map in a certain order, you will have to do it yourself:
+	//create a slice of an array using the make() and the initial value as the length of the states map
+	//initialize  a variable i for the current index of the slice and set it to 0
+	//use a for loop and have k := range states, and set the index of keys in the loop to [i], and set it to k (the current key in the states map)
+	//continue through the loop till you get to the end of the map using i++
+	keys := make([]string, len(states))
+	i := 0
+	for k := range states {
+		keys[i] = k
+		i++
+	}
+
+	fmt.Println(keys)
+	//if you are wanting to sort the values in a certain order, you have to use the sort package
+	sort.Strings(keys)
+	fmt.Println(keys)
+	//Now iterate through the slice using i for the index, and print these out to the console.
+	for i := range keys {
+		fmt.Println(states[keys[i]])
+	}
 }
