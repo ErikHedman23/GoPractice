@@ -4,29 +4,28 @@ import (
 	"fmt"
 )
 
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
+//variables that store the memory address of another variable
 
 func main() {
+	anInt := 42
 
-	var aString string = "This is Go!"
+	var p = &anInt //the & means that you are pointing at the memory address of the variable, not at the value.
 
-	fmt.Println(aString)
+	fmt.Println("Value of p:", *p) //*p is pointing at the memory address of p
+	fmt.Println("Address of anInt:", &anInt)
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	value1 := 42.15
+	pointer1 := &value1 //not explicitly declaring the type of pointer1, but by using the &, you are implicitly delcaring pointer1 as a pointer, pointing to the memory address
+	//of value1
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	fmt.Println("Value 1:", *pointer1)
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	*pointer1 = *pointer1 / 31
+
+	//this changes the original value of value1
+
+	fmt.Println("Pointer 1:", value1)
+
+	//Pointers are great when you are wanting to access and alter the original value of a variable.
 
 }
