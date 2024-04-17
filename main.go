@@ -2,31 +2,37 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
-
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
 
 func main() {
 
-	var aString string = "This is Go!"
+	var colors = [3]string{"Green", "Red", "Blue"}
+	fmt.Println(colors)
+	//By removing the length of the array (the [3]), it becomes a slice, and you can add and remove items from it during runtime
+	var names = []string{"Bob", "Jeff", "Matthew"}
 
-	fmt.Println(aString)
+	names = append(names, "Jeffery")
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	fmt.Println(names)
+	//to remove an item in a slice, you will also use to append(), but like so:
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	names = append(names[1:len(names)])
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	fmt.Println(names)
 
+	numbers := make([]int, 5, 5)
+	numbers[0] = 134
+	numbers[1] = 135
+	numbers[2] = 136
+	numbers[3] = 137
+	numbers[4] = 138
+
+	fmt.Println(numbers)
+
+	//Using them make function allows you to input the type of the slice, the original starting amount, and the limit.  If you leave the limit arugument empty, you can add as
+	//much as you would like to to the slice by using the append()
+
+	sort.Ints(numbers)
+	fmt.Println(numbers)
 }
