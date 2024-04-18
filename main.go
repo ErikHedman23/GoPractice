@@ -62,3 +62,15 @@ func main() {
 		fmt.Println(states[keys[i]])
 	}
 }
+
+func convertToMap(items []string) map[string]float64 {
+
+	result := make(map[string]float64)
+	//We are iterating over the slice, and ignoring the index by using _, and assigning the value of the items in the slice as the key for the map result, and assinging the value
+	//of the variable elementValue, which is 100 / the length of the items in the slice items converted to a float64
+	elementValue := 100 / float64(len(items))
+	for _, v := range items {
+		result[v] = elementValue
+	}
+	return result
+}
