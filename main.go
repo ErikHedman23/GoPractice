@@ -4,6 +4,20 @@ import (
 	"fmt"
 )
 
+type cartItem struct {
+	name     string
+	price    float64
+	quantity int
+}
+
+func calculateTotal(cart []cartItem) float64 {
+	var value float64 = 0
+	for _, item := range cart {
+		value += (item.price * float64(item.quantity))
+	}
+	return value
+}
+
 func main() {
 
 	colors := []string{"Red", "Green", "Blue"}
@@ -74,4 +88,16 @@ theEnd:
 	/*
 		In this example, the loop iterates from 0 to 9. When i is an even number, the continue statement is executed, which skips the rest of the loop body and continues with the next iteration of the loop. As a result, only odd numbers are printed.
 	*/
+
+	/*Here is an example of using a for loop as a for each loop to calculate the total of a shopping cart */
+
+	var cart []cartItem
+	var apples = cartItem{"apple", 2.99, 3}
+	var oranges = cartItem{"orange", 1.50, 8}
+	var bananas = cartItem{"banana", .49, 12}
+	cart = append(cart, apples, oranges, bananas)
+
+	result := calculateTotal(cart)
+
+	fmt.Println(result)
 }
