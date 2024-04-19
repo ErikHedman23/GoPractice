@@ -4,29 +4,42 @@ import (
 	"fmt"
 )
 
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
-
 func main() {
 
-	var aString string = "This is Go!"
+	doSomething()
 
-	fmt.Println(aString)
+	sum := addValues(5, 8)
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	fmt.Println("The sum is:", sum)
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	multiSum, multiCount := addAllValues(4, 5, 987)
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+	fmt.Println("Sum of multiple values:", multiSum)
+	//If you delcare a function that returns multiple values, make sure to declare another variable to store the second value in it:
+	fmt.Println("Sum of multiple values:", multiCount)
 
+}
+
+// if you do not need to return anything in your function, you do not need anything between the parens and the braces:
+func doSomething() {
+	fmt.Println("Do something")
+}
+
+//If the function is going to return a value, declare the value after the functions closing parentheses.  If you are wanting to pass in any arguments
+//, do so by declaring them inside the parentheses.  Also, if the func is accepting multiple arguments of the same type, you only need to declare the type for the last argument in the parentheses:
+
+func addValues(value1, value2 int) int {
+	return value1 + value2
+}
+
+//a func can also accept an arbitrary number of values of the same type.  Go also lets you return multiple values from a function
+//Go to the function, change the signiture so that you are returning a comma, delimited list wrapped in parentheses:
+
+func addAllValues(values ...int) (int, int) {
+	total := 0
+	for _, v := range values {
+		total += v
+	}
+
+	return total, len(values)
 }
