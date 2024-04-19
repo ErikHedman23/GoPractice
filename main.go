@@ -1,32 +1,55 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	// "strings"
 )
 
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
+const url = "https://jsonplaceholder.typicode.com/posts/1"
 
 func main() {
+	//creating Get response object
+	resp, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
+	//We will get back a response type pointing to a pointer of *http.Response
+	fmt.Printf("Response type: %T", resp)
 
-	var aString string = "This is Go!"
+	defer resp.Body.Close()
+	//We are reading the body of the json object that we got using the http.Get()
+	//	bytes, err := io.ReadAll(resp.Body)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//We are converting the content of the body to a string using the string() and printing it to the screen:
+	//	content := string(bytes)
+	//	fmt.Println(content)
 
-	fmt.Println(aString)
+	var tour Tour
+	err = toursFromJson(resp.Body, &tour)
+	if err != nil {
+		panic(err)
+	}
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	fmt.Println("Title:", tour.Title)
+	fmt.Println("Body:", tour.Body)
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+}
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+func toursFromJson(r io.Reader, tour *Tour) error {
+	decoder := json.NewDecoder(r)
 
+	return decoder.Decode(tour)
+}
+
+// declaring a new type of Tour, and two fields: Name and Price.  Because they are both strings, I can declare them on the same line:
+type Tour struct {
+	UserID int    `json:"userId"`
+	ID     int    `json:"id"`
+	Title  string `json:"title"`
+	Body   string `json:"body"`
 }
