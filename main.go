@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func main() {
@@ -42,4 +43,51 @@ func addAllValues(values ...int) (int, int) {
 	}
 
 	return total, len(values)
+}
+
+// calculate() returns the result of the requested operation.
+func calculate(input1 string, input2 string, operation string) float64 {
+	// Your code goes here.
+
+	newVal1 := convertInputToValue(input1)
+	newVal2 := convertInputToValue(input2)
+	var answer float64
+	switch operation {
+	case "+":
+		answer = addValuess(newVal1, newVal2)
+	case "-":
+		answer = subtractValues(newVal1, newVal2)
+	case "*":
+		answer = multiplyValues(newVal1, newVal2)
+	case "/":
+		answer = divideValues(newVal1, newVal2)
+	default:
+		panic("Invalid operator!")
+	}
+	return answer
+}
+
+func convertInputToValue(input string) float64 {
+	value, err := strconv.ParseFloat(input, 64)
+	if err != nil {
+		panic("String can't be parsed to a float64")
+	} else {
+		return value
+	}
+}
+
+func addValuess(value1, value2 float64) float64 {
+	return value1 + value2
+}
+
+func subtractValues(value1, value2 float64) float64 {
+	return value1 - value2
+}
+
+func multiplyValues(value1, value2 float64) float64 {
+	return value1 * value2
+}
+
+func divideValues(value1, value2 float64) float64 {
+	return value1 / value2
 }
