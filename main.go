@@ -70,7 +70,8 @@ func calculate(input1 string, input2 string, operation string) float64 {
 func convertInputToValue(input string) float64 {
 	value, err := strconv.ParseFloat(input, 64)
 	if err != nil {
-		panic("String can't be parsed to a float64")
+		message := fmt.Sprintf("%v must be a number", input)
+		panic(message)
 	} else {
 		return value
 	}
