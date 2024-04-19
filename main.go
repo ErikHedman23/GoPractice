@@ -100,4 +100,16 @@ theEnd:
 	result := calculateTotal(cart)
 
 	fmt.Println(result)
+
+	var out int
+
+	for j := 0; j < 20; j++ {
+		out = j*j + out
+		if out > 12 {
+			goto theNewEnd
+		}
+	}
+
+theNewEnd:
+	fmt.Println(out)
 }
