@@ -2,31 +2,46 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
 )
-
-// since the variable starts with a lowercase a, it is private and only can be accessed within this file.
-// If it had an uppercase A at the beginning, it would be public, and it would be accessible within any file within this directory
-const aConst int = 64
 
 func main() {
 
-	var aString string = "This is Go!"
+	content := "Hello"
 
-	fmt.Println(aString)
+	//we are now creating a variable to store the newly created file in.  We are also handling an error, so we create a variable for that too.
+	//use the os package and the Create(), and we are using ./ to reference the same file path as the current .go file we are working with
+	//we are also passing our err variable into the checkError() we made earlier
+	file, err := os.Create("./fromString.txt")
+	checkError(err)
+	//Now, we are creating another variable called length, and another error handling variable, err.  we will be using the io package with the
+	//WriteString() that takes two arguments, a writer object and a string. We are passing in the file variable, and the content variable.
+	//We check the err again with the checkError func
+	//the length variable will be returned, and it will be the number of characters added to the file.
+	length, err := io.WriteString(file, content)
+	checkError(err)
 
-	var defaultInt int
-	fmt.Println(defaultInt)
-	fmt.Printf("This variable's type is %T\n", defaultInt)
+	fmt.Printf("Wrote a file with %v characters\n", length)
+	//defer means to wait until everything else is done, and then execute the command.  We always want to make sure we close a file after altering
+	//it
+	defer file.Close()
 
-	var anotherInt = 53
-	fmt.Println(anotherInt)
-	fmt.Printf("This variable's type is %T\n", anotherInt)
+	defer readFile("./fromString.txt")
 
-	//another way of implicitly typing a variable is by using :=
-	//You can only use the := to implicitly type variables within a function.  Any variable declared outsite of a function must use the var keyword.
-	//Same for constants, you must use the const keyword
-	myString := "This is also a string"
-	fmt.Println(myString)
-	fmt.Printf("This variable's type is %T\n", myString)
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+//When you read a file, it always comes to you as an array of bytes.
+
+func readFile(fileName string) {
+	data, err := os.ReadFile(fileName)
+	checkError(err)
+	fmt.Println("Text read from file:", string(data))
 
 }
