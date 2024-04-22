@@ -5,15 +5,15 @@ import (
 )
 
 func main() {
-	for i := 1; i <= 20; i++ {
-		if i%3 == 0 && i%5 == 0 {
-			fmt.Println("Fizzbuzz")
-		} else if i%3 == 0 {
-			fmt.Println("Fizz")
-		} else if i%5 == 0 {
-			fmt.Println("Buzz")
-		} else {
-			fmt.Println(i)
+	nums := []int{16, 8, 4, 23, 15, 500}
+
+	maxValue := nums[0]
+
+	for _, n := range nums[1:] {
+		if n > maxValue {
+			maxValue = n
 		}
 	}
+	fmt.Println(maxValue)
+
 }
